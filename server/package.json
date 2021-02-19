@@ -1,14 +1,27 @@
 {
-  "name": "server",
-  "version": "1.0.0",
-  "description": "A node.js express server for our app",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "",
-  "license": "MIT",
-  "dependencies": {
-    "express": "^4.16.4"
-  }
+	"name": "server",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"start": "nodemon app.js",
+		"serve": "./node_modules/.bin/netlify-lambda serve src",
+		"build": "./node_modules/.bin/netlify-lambda build src",
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"cheerio": "^1.0.0-rc.5",
+		"cookie-parser": "^1.4.5",
+		"express": "^4.17.1",
+		"lets-get-meta": "^2.1.1",
+		"netlify-lambda": "^2.0.3",
+		"node-fetch": "^2.6.1",
+		"serverless-http": "^2.7.0"
+	},
+	"devDependencies": {
+		"nodemon": "^2.0.7"
+	}
 }
