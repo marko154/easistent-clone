@@ -16,7 +16,7 @@ export default setPraisesSlice.reducer;
 
 export const fetchPraises = () => async (dispatch) => {
 	try {
-		const res = await fetch("/api/praises-improvements", {
+		const res = await fetch("/.netlify/functions/app/api/praises-improvements", {
 			credentials: "include",
 		});
 		const praises = await res.json();
