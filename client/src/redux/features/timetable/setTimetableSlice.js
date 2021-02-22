@@ -41,7 +41,7 @@ export const fetchTimetable = (week) => async (dispatch) => {
 	if (week.from in memo) return dispatch(setTimetable(memo[week.from]));
 	try {
 		const res = await fetch(
-			`/api/timetable?from=${week.from}&to=${week.to}`,
+			`/.netlify/functions/app/api/timetable?from=${week.from}&to=${week.to}`,
 			{ credentials: "include" }
 		);
 		const timetable = await res.json();
