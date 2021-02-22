@@ -16,7 +16,7 @@ export default setAbsencesSlice.reducer;
 
 export const fetchAbsences = () => async (dispatch) => {
 	try {
-		const res = await fetch("/api/absences", { credentials: "include" });
+		const res = await fetch("/.netlify/functions/app/api/absences", { credentials: "include" });
 		const data = await res.json();
 		if (data.error)
 			return dispatch(setClientID({ xChildID: null, username: "" }));
