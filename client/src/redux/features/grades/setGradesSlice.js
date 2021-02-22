@@ -16,7 +16,7 @@ export default setGradesSlice.reducer;
 
 export const fetchGrades = () => async (dispatch) => {
 	try {
-		const res = await fetch("/api/grades", { credentials: "include" });
+		const res = await fetch("/.netlify/functions/app/api/grades", { credentials: "include" });
 		const grades = await res.json();
 		if (grades.error)
 			return dispatch(setClientID({ xChildID: null, username: "" }));
