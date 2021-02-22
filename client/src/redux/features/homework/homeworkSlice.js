@@ -16,7 +16,7 @@ export default homeworkSlice.reducer;
 
 export const fetchHomework = () => async (dispatch) => {
 	try {
-		const res = await fetch("/api/homework");
+		const res = await fetch("/.netlify/functions/app/api/homework");
 		const homework = await res.json();
 		if (homework.error)
 			return dispatch(setClientID({ xChildID: null, username: "" }));
