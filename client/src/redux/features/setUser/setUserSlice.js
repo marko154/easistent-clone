@@ -40,7 +40,7 @@ export default setUserSlice.reducer;
 
 export const fetchBasicUserData = () => async (dispatch) => {
 	try {
-		const res = await fetch("/api/basic-user-data", {
+		const res = await fetch("/.netlify/functions/app/api/basic-user-data", {
 			credentials: "include",
 		});
 		const userBasicData = await res.json();
@@ -54,7 +54,7 @@ export const fetchBasicUserData = () => async (dispatch) => {
 
 export const fetchUserData = () => async (dispatch) => {
 	try {
-		const res = await fetch("/api/user-data", { credentials: "include" });
+		const res = await fetch("/.netlify/functions/app/api/user-data", { credentials: "include" });
 		const userData = await res.json();
 		dispatch(setUserData(userData));
 	} catch {
