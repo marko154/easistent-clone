@@ -30,7 +30,7 @@ export const fetchNews = () => async (dispatch) => {
 			)}&to=${easistentApiFormat(new Date())}`
 		),
 		fetch("https://backend.sledilnik.org/api/v1/restrictions/21/"),
-		fetch("/news/24ur"),
+		fetch("/.netlify/functions/app/news/24ur"),
 	]);
 	const [summary, schoolCases, schoolRestrictions, news] = await Promise.all(
 		responses.map((res) => res.json())
