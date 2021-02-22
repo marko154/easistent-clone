@@ -16,7 +16,7 @@ export default setExamsSlice.reducer;
 
 export const fetchExams = () => async (dispatch) => {
 	try {
-		const res = await fetch("api/exams", { credentials: "include" });
+		const res = await fetch("/.netlify/functions/app/api/exams", { credentials: "include" });
 		const exams = await res.json();
 		if (exams.error)
 			return dispatch(setClientID({ xChildID: null, username: "" }));
