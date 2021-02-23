@@ -98,6 +98,15 @@ const StyledLoginForm = styled.div`
 		margin-bottom: -0.85rem;
 	}
 
+	p {
+		font-size: 0.75rem;
+		margin: 0;
+		margin-bottom: -16px;
+		margin-top: 4px;
+		text-decoration: underline;
+		cursor: pointer;
+	}
+
 	@media screen and (max-width: 500px) {
 		width: 90vw;
 		height: 60vh;

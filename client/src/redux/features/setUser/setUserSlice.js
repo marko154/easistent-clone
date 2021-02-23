@@ -26,6 +26,9 @@ const setUserSlice = createSlice({
 		setSecondaryColor(state, action) {
 			return { ...state, secondary: action.payload };
 		},
+		resetUser(state, action) {
+			return { clientID: null, primary: "#00929c", secondary: "#333333" };
+		},
 	},
 });
 
@@ -35,6 +38,7 @@ export const {
 	setUserData,
 	setPrimaryColor,
 	setSecondaryColor,
+	resetUser,
 } = setUserSlice.actions;
 export default setUserSlice.reducer;
 
@@ -54,7 +58,9 @@ export const fetchBasicUserData = () => async (dispatch) => {
 
 export const fetchUserData = () => async (dispatch) => {
 	try {
-		const res = await fetch("/.netlify/functions/app/api/user-data", { credentials: "include" });
+		const res = await fetch("/.netlify/functions/app/api/user-data", {
+			credentials: "include",
+		});
 		const userData = await res.json();
 		dispatch(setUserData(userData));
 	} catch {

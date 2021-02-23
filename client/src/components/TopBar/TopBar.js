@@ -38,7 +38,11 @@ const TopBar = ({
 					<img
 						alt="avatar"
 						style={!avatarUrl ? { display: "none" } : null}
-						src={`https://www.easistent.com/images/dijaki/${avatarUrl}`}
+						src={
+							avatarUrl && avatarUrl.startsWith("http")
+								? "https://media.beam.usnews.com/d1/d8/8501ba714a21aed9a7327e02ade1/180515-10thingselonmusk-editorial.jpg"
+								: `https://www.easistent.com/images/dijaki/${avatarUrl}`
+						}
 					/>
 				</div>
 			</div>

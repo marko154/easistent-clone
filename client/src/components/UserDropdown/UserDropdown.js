@@ -7,6 +7,7 @@ import {
 	setClientID,
 	setPrimaryColor,
 	setSecondaryColor,
+	resetUser,
 } from "../../redux/features/setUser/setUserSlice";
 import { BiLogOut, BiColorFill } from "react-icons/bi";
 import { RiSettings3Fill } from "react-icons/ri";
@@ -26,6 +27,7 @@ const UserDropdown = forwardRef(
 			setPrimaryColor,
 			setSecondaryColor,
 			toggleIsSidemenuDragging,
+			resetUser,
 		},
 		ref
 	) => {
@@ -49,14 +51,7 @@ const UserDropdown = forwardRef(
 						onEnter={(e) => setMenuHeight(e.offsetHeight)}
 					>
 						<div>
-							<div
-								onClick={() =>
-									setClientID({
-										clientID: null,
-										username: null,
-									})
-								}
-							>
+							<div onClick={resetUser}>
 								<BiLogOut /> Log Out
 							</div>
 							<Link
@@ -144,6 +139,7 @@ const mapDispatchToProps = (dispatch) => ({
 	setPrimaryColor: (color) => dispatch(setPrimaryColor(color)),
 	setSecondaryColor: (color) => dispatch(setSecondaryColor(color)),
 	toggleIsSidemenuDragging: (val) => dispatch(toggleIsDraggable(val)),
+	resetUser: () => dispatch(resetUser()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps, null, {

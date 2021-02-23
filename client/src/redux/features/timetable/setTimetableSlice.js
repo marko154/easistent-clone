@@ -51,6 +51,6 @@ export const fetchTimetable = (week) => async (dispatch) => {
 		memo[week.from] = timetable;
 		dispatch(setTimetable(timetable));
 	} catch {
-		dispatch({ xChildID: null, username: "" });
+		dispatch(setClientID({ xChildID: null, username: "" }));
 	}
 };

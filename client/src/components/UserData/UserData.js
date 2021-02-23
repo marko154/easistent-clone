@@ -37,7 +37,7 @@ const UserData = ({
 			},
 			body: JSON.stringify({ username, password }),
 		};
-		const res = await fetch("/api/auth", options);
+		const res = await fetch("/.netlify/functions/app/api/auth", options);
 		const data = await res.json();
 		if (data.error) return setError("Invalid password");
 		setError("");

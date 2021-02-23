@@ -27,6 +27,18 @@ const LoginPage = ({ setClientID, history }) => {
 		setClientID({xChildID: data.xChildID, username});
 		history.push("/")
 	};
+	const demoLogin = async (e) => {
+		e.preventDefault();
+		await fetch("/.netlify/functions/app/api/auth", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({ username: "demo" }),
+		});
+		setClientID({xChildID: "demo", username: "john.doe@gmail.com"});
+		history.push("/")
+	}
 
 	return (
 		<StyledLoginForm>
@@ -55,6 +67,7 @@ const LoginPage = ({ setClientID, history }) => {
 				</span>
 				{error && <div className="error">{error}</div>}
 				<Button type="submit" onClick={logIn}>LOGIN</Button>
+				<p onClick={demoLogin}>Demo Login</p>
 			</form>
 		</StyledLoginForm>
 	);
