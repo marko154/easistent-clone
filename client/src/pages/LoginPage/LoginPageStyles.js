@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { connect } from "react-redux";
 
 const StyledLoginForm = styled.div`
 	position: relative;
@@ -24,7 +25,7 @@ const StyledLoginForm = styled.div`
 		margin-top: 0;
 		margin-bottom: 0;
 		color: white;
-		background: #00929c;
+		background: ${(props) => props.primary};
 		width: 100%;
 		height: 25%;
 	}
@@ -44,12 +45,12 @@ const StyledLoginForm = styled.div`
 		padding: 10px 10px;
 		font-family: "Open Sans", sans-serif;
 		margin: 12px 0;
-		border: 1px solid rgba(0, 146, 156, 0.5);
+		border: 1px solid ${(props) => props.primary}80;
 		box-shadow: rgba(0, 0, 0, 0.08) 0px 4px 12px;
 
 		&:hover,
 		&:focus {
-			border: 1px solid rgba(0, 146, 156, 0.8);
+			border: 1px solid ${(props) => props.primary}aa;
 			outline: none;
 			box-shadow: rgba(0, 0, 0, 0.15) 0px 4px 15px;
 		}
@@ -69,12 +70,12 @@ const StyledLoginForm = styled.div`
 		}
 	}
 	.is-visible {
-		border: 1px solid rgba(0, 146, 156, 0.5);
+		border: 1px solid ${(props) => props.primary}80;
 		border-left: none;
 		height: 38px;
 		width: 38px;
 		font-size: 25px;
-		color: #00929c;
+		color: ${(props) => props.primary};
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -84,14 +85,14 @@ const StyledLoginForm = styled.div`
 
 		&:hover,
 		&:focus {
-			border: 1px solid rgba(0, 146, 156, 0.8);
+			border: 1px solid ${(props) => props.primary}aa;
 			border-left: none;
 			box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 15px;
 		}
 	}
 
 	.error {
-		color: rgb(80, 80, 80);
+		color: #555;
 		font-size: 0.85rem;
 		animation: 0.1s error ease forwards;
 		opacity: 0;
@@ -124,4 +125,6 @@ const StyledLoginForm = styled.div`
 	}
 `;
 
-export default StyledLoginForm;
+const mapStateToProps = (state) => ({ primary: state.user.primary });
+
+export default connect(mapStateToProps)(StyledLoginForm);
