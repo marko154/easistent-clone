@@ -8,6 +8,7 @@ const setTimetableSlice = createSlice({
 		week: { from: null, to: null },
 		timetable: null,
 		animationDirection: "",
+		isLoading: false,
 	},
 	reducers: {
 		setTimetable(state, action) {
@@ -25,6 +26,9 @@ const setTimetableSlice = createSlice({
 		setAnimationDirection(state, action) {
 			return { ...state, animationDirection: action.payload };
 		},
+		setIsLoading(state, action) {
+			return { ...state, isLoading: action.payload };
+		},
 	},
 });
 
@@ -32,6 +36,7 @@ export const {
 	setTimetable,
 	setWeek,
 	setAnimationDirection,
+	setIsLoading,
 } = setTimetableSlice.actions;
 export default setTimetableSlice.reducer;
 
@@ -40,12 +45,13 @@ const memo = {};
 export const fetchTimetable = (week) => async (dispatch) => {
 	if (week.from in memo) return dispatch(setTimetable(memo[week.from]));
 	try {
+		dispatch(setIsLoading(true));
 		const res = await fetch(
 			`/.netlify/functions/app/api/timetable?from=${week.from}&to=${week.to}`,
 			{ credentials: "include" }
 		);
 		const timetable = await res.json();
-
+		dispatch(setIsLoading(false));
 		if (timetable.error)
 			return dispatch(setClientID({ xChildID: null, username: "" }));
 		memo[week.from] = timetable;

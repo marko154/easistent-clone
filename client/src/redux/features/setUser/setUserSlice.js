@@ -67,3 +67,10 @@ export const fetchUserData = () => async (dispatch) => {
 		dispatch(setClientID({ xChildID: null, username: "" }));
 	}
 };
+
+export const logUserOut = () => async (dispatch) => {
+	await fetch("/.netlify/functions/app/api/logout", {
+		method: "POST",
+	});
+	dispatch(resetUser());
+};

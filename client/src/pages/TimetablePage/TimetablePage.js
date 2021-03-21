@@ -14,7 +14,7 @@ const TimetablePage = ({ timetable, setTimetable, week }) => {
 	return (
 		<StyledPage style={{ overflowY: "scroll" }}>
 			<SelectWeek week={week} />
-			{timetable ? <Timetable {...timetable} /> : <Spinner></Spinner>}
+			{timetable ? <Timetable {...timetable} /> : <Spinner />}
 		</StyledPage>
 	);
 };

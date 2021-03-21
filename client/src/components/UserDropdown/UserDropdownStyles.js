@@ -1,3 +1,4 @@
+import { connect } from "react-redux";
 import styled from "styled-components";
 import shade from "../../utils/color";
 
@@ -8,7 +9,7 @@ const StyledUserDropdown = styled.div`
 	width: 250px;
 	overflow: hidden;
 	font-family: "Open Sans", sans-serif;
-	background: ${(props) => props.bg};
+	background: ${(props) => props.secondaryColor};
 	color: white;
 	box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 	animation: fade-pop 0.15s ease;
@@ -27,7 +28,7 @@ const StyledUserDropdown = styled.div`
 			padding: 13px 15px;
 			cursor: pointer;
 			&:hover {
-				background: ${(props) => shade(props.bg, 50)};
+				background: ${(props) => shade(props.secondaryColor, 50)};
 			}
 
 			svg {
@@ -88,4 +89,11 @@ const StyledUserDropdown = styled.div`
 		}
 	}
 `;
-export default StyledUserDropdown;
+
+const mapStateToProps = (state) => ({
+	secondaryColor: state.user.secondary,
+});
+
+export default connect(mapStateToProps, null, null, { forwardRef: true })(
+	StyledUserDropdown
+);

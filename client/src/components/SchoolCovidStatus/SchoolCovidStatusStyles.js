@@ -31,6 +31,10 @@ const StyledSection = styled.section`
 			&:hover {
 				color: black;
 			}
+			@media screen and (max-width: 800px) {
+				padding: 1px 0;
+				margin-left: -8px;
+			}
 		}
 	}
 
@@ -48,7 +52,14 @@ const StyledSection = styled.section`
 		border: 1px solid rgba(0, 0, 0, 0.27);
 	}
 	@media screen and (max-width: 800px) {
-		padding: 20px 25px;
+		padding: 15px 19px;
+		h2 {
+			font-size: 1.4em;
+			margin: 12px 0 10px;
+		}
+		.rule {
+			font-size: 1em;
+		}
 	}
 `;
 

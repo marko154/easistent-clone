@@ -1,19 +1,26 @@
 import { useEffect, useState, memo } from "react";
 import { connect } from "react-redux";
 import { fetchExams } from "../../redux/features/exams/setExamsSlice";
+import { exportEventsToCalendar } from "../../googleApi/calendar";
 import Exam from "../../components/Exam/Exam";
+import Button from "../../components/Button/Button";
 import Spinner from "../../components/Spinner/Spinner";
 import StyledChoice from "./ExamsPageStyles";
 import StyledPage from "../PageStyles";
 
 const pages = { future: "future", past: "past" };
 
-const ExamsPage = ({ fetchExams, exams, primary }) => {
+const ExamsPage = ({ fetchExams, exams, primary, school }) => {
 	const [page, setPage] = useState(pages.future);
+	const [isLoadingToCalendar, setIsLoading] = useState(false);
 
 	useEffect(() => {
 		if (!exams.past || !exams.future) fetchExams();
 	}, [fetchExams, exams]);
+
+	const exportToGoogleCalendar = () => {
+		exportEventsToCalendar(exams, school, setIsLoading);
+	};
 
 	return (
 		<StyledPage>
@@ -31,6 +38,17 @@ const ExamsPage = ({ fetchExams, exams, primary }) => {
 					Future
 				</div>
 			</StyledChoice>
+			{page === pages.future && (
+				<div style={{ marginBottom: "20px" }}>
+					<Button
+						width={200}
+						onClick={exportToGoogleCalendar}
+						isLoading={isLoadingToCalendar}
+					>
+						Export to Google Calendar
+					</Button>
+				</div>
+			)}
 			{exams.future ? (
 				page === pages.future ? (
 					<div>
@@ -57,6 +75,7 @@ const ExamsPage = ({ fetchExams, exams, primary }) => {
 const mapStateToProps = (state) => ({
 	exams: state.exams,
 	primary: state.user.primary,
+	school: state.user.school,
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -7,7 +7,7 @@ import {
 	setClientID,
 	setPrimaryColor,
 	setSecondaryColor,
-	resetUser,
+	logUserOut,
 } from "../../redux/features/setUser/setUserSlice";
 import { BiLogOut, BiColorFill } from "react-icons/bi";
 import { RiSettings3Fill } from "react-icons/ri";
@@ -21,13 +21,11 @@ import { toggleIsDraggable } from "../../redux/features/sideMenu/sideMenuSlice";
 const UserDropdown = forwardRef(
 	(
 		{
-			setClientID,
 			toggleShowDropdown,
-			secondaryColor,
 			setPrimaryColor,
 			setSecondaryColor,
 			toggleIsSidemenuDragging,
-			resetUser,
+			logUserOut,
 		},
 		ref
 	) => {
@@ -38,11 +36,7 @@ const UserDropdown = forwardRef(
 
 		return (
 			<>
-				<StyledUserDropdown
-					ref={ref}
-					height={menuHeight}
-					bg={secondaryColor}
-				>
+				<StyledUserDropdown ref={ref} height={menuHeight}>
 					<CSSTransition
 						in={activeMenu === "main"}
 						unmountOnExit
@@ -51,7 +45,7 @@ const UserDropdown = forwardRef(
 						onEnter={(e) => setMenuHeight(e.offsetHeight)}
 					>
 						<div>
-							<div onClick={resetUser}>
+							<div onClick={logUserOut}>
 								<BiLogOut /> Log Out
 							</div>
 							<Link
@@ -128,20 +122,15 @@ const UserDropdown = forwardRef(
 	}
 );
 
-const mapStateToProps = (state) => ({
-	secondaryColor: state.user.secondary,
-	primaryColor: state.user.primary,
-});
-
 const mapDispatchToProps = (dispatch) => ({
 	setClientID: (clientID) => dispatch(setClientID(clientID)),
 	toggleShowDropdown: (val) => dispatch(toggleShowDropdown(val)),
 	setPrimaryColor: (color) => dispatch(setPrimaryColor(color)),
 	setSecondaryColor: (color) => dispatch(setSecondaryColor(color)),
 	toggleIsSidemenuDragging: (val) => dispatch(toggleIsDraggable(val)),
-	resetUser: () => dispatch(resetUser()),
+	logUserOut: () => dispatch(logUserOut()),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps, null, {
+export default connect(() => ({}), mapDispatchToProps, null, {
 	forwardRef: true,
 })(UserDropdown);

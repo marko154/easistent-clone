@@ -18,7 +18,6 @@ export async function getAccessToken(username, password) {
 	const tokenResponse = await fetch(BASE_URL, {
 		headers: { cookie: sessionCookie },
 	});
-
 	const html = await tokenResponse.text();
 	return {
 		token: getMeta(html)["access-token"].split(" ")[1],

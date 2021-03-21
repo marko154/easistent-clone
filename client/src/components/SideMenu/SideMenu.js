@@ -50,7 +50,6 @@ const SideMenu = ({
 	const handleDragOver = (event) => {
 		event.preventDefault();
 		if (prevDrag) prevDrag.style.marginTop = "0px";
-
 		if (event.currentTarget.id !== dragID)
 			event.currentTarget.style.marginTop = "66px";
 
@@ -76,6 +75,8 @@ const SideMenu = ({
 	};
 
 	const handleDrop = (event) => {
+		event.preventDefault();
+
 		const dragItem = menuItems.find((item) => item.name === dragID);
 		const dropItem = menuItems.find((item) => item.name === prevDrag.id);
 
@@ -127,8 +128,8 @@ const SideMenu = ({
 						activeClassName="active"
 						onClick={handleNavClick}
 						draggable={isDraggable}
-						onDragOver={handleDragOver}
 						onDragStart={handleDrag}
+						onDragOver={handleDragOver}
 						onDragEnd={handleDrop}
 					>
 						<div>
@@ -154,7 +155,6 @@ const mapStateToProps = (state) => ({
 	primaryColor: state.user.primary,
 	secondaryColor: state.user.secondary,
 	isDraggable: state.sidemenu.isDraggable,
-	// create a selector for this bitch
 	menuItems: [...state.sidemenu.menuItems].sort((a, b) => a.order - b.order),
 });
 const mapDispatchToProps = (dispatch) => ({

@@ -25,11 +25,13 @@ export const getUserData = async (easistent_session) => {
 	const html = await res.text();
 	const $ = cheerio.load(html);
 	const email = $(".middle b").last().text();
+	const school = $("#izbirnik_sole").first().text().trim();
+	console.log("school", school);
 	return fields.reduce(
 		(data, field) => ({
 			...data,
 			[field]: $(`input[name=${field}]`).attr("value"),
 		}),
-		{ email }
+		{ email, school }
 	);
 };

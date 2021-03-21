@@ -31,11 +31,10 @@ const StyledSideMenu = styled.menu`
 		color: white;
 		text-decoration: none;
 		font-family: "Open Sans", sans-serif;
-		transition: 0.05s ease;
+		transition: 0.07s ease;
 		display: flex;
 		justify-content: space-between;
 		box-sizing: border-box;
-		height: 66px;
 
 		div svg {
 			padding-right: 7px;
@@ -44,6 +43,9 @@ const StyledSideMenu = styled.menu`
 
 		&:hover {
 			background: ${(props) => shade(props.bg, 40)};
+		}
+		@media screen and (max-width: 800px) {
+			padding: 19px 25px 19px 40px;
 		}
 	}
 	.active {

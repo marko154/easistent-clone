@@ -12,7 +12,7 @@ const app = express();
 const router = express.Router();
 app.use(express.json());
 app.use(cookieParser());
-
+// implement logout (set token and session id to a dummy value with setcookie)
 router.post("/api/auth", async (req, res) => {
 	const { username, password } = req.body;
 	if (username === "demo") {
@@ -29,6 +29,14 @@ router.post("/api/auth", async (req, res) => {
 	res.cookie("xChildID", xChildID, { maxAge: 86_400_000, httpOnly: true });
 	res.cookie("sessionID", sessionID, { maxAge: 86_400_000, httpOnly: true });
 	res.json({ xChildID });
+});
+
+router.post("/api/logout", (req, res) => {
+	console.log("logging out");
+	res.cookie("token", "", { maxAge: 86_400_000, httpOnly: true });
+	res.cookie("xChildID", "", { maxAge: 86_400_000, httpOnly: true });
+	res.cookie("sessionID", "", { maxAge: 86_400_000, httpOnly: true });
+	res.json({ message: "success" }).status(200);
 });
 
 router.get("/api/basic-user-data", async (req, res) => {

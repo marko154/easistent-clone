@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import shade from "../../utils/color";
+import { connect } from "react-redux";
 
 const StyledButton = styled.button`
 	border: none;
@@ -8,11 +9,11 @@ const StyledButton = styled.button`
 	position: relative;
 	cursor: pointer;
 	outline: none;
-	width: 300px;
-	margin-top: 40px;
+	width: ${(props) => props.width}px;
+	margin-top: ${(props) => props.marginTop}px;
 	padding: 10px 15px;
 	box-shadow: rgba(0, 0, 0, 0.08) 0px 4px 12px;
-	background: #00929c;
+	background: ${(props) => props.primary};
 	transition: 0.07s ease-in-out;
 	font-family: "Open Sans", sans-serif;
 	font-display: swap;
@@ -22,7 +23,7 @@ const StyledButton = styled.button`
 	&:focus {
 		box-shadow: rgba(0, 0, 0, 0.2) 0px 5px 15px;
 		outline: none;
-		background: ${shade("#00929c", -10)};
+		background: ${(props) => shade(props.primary, -10)};
 	}
 
 	@media screen and (max-width: 500px) {
@@ -32,7 +33,7 @@ const StyledButton = styled.button`
 		width: 20px;
 		height: 20px;
 		position: absolute;
-		background: ${shade("#00929c", 20)};
+		background: ${(props) => shade(props.primary, 20)};
 		display: block;
 		content: "";
 		border-radius: 9999px;
@@ -40,6 +41,8 @@ const StyledButton = styled.button`
 		animation: 0.8s ease 1 forwards ripple-effect;
 	}
 	& > .content {
+		display: flex;
+		justify-content: center;
 		position: relative;
 		z-index: 2;
 		pointer-events: none;
@@ -61,4 +64,8 @@ const StyledButton = styled.button`
 	}
 `;
 
-export default StyledButton;
+const mapStateToProps = (state) => ({
+	primary: state.user.primary,
+});
+
+export default connect(mapStateToProps)(StyledButton);

@@ -5,8 +5,9 @@ const StyledTimetable = styled.div`
 		border-top: 1px solid rgb(199, 199, 199);
 		box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 		margin-bottom: 100px;
-		animation: ${(props) =>
-			props.animDir === "" ? "0.15s fade-pop ease" : ""};
+		animation: 0.15s fade-pop ease;
+		opacity: ${(props) => (props.isLoading ? ".75" : "1")};
+		transition: 0.05s ease;
 	}
 	.day-names {
 		margin-bottom: 20px;
@@ -89,6 +90,7 @@ const StyledTimetable = styled.div`
 			border-right: 1px solid rgb(199, 199, 199);
 			box-sizing: border-box;
 			position: relative;
+			overflow: hidden;
 
 			.special-type {
 				position: absolute;
@@ -168,16 +170,16 @@ const StyledTimetable = styled.div`
 		}
 
 		.split-hour {
-			width: 6.5vw;
+			width: ${(props) => 32.5 / props.numOfDays}vw;
 			@media screen and (max-width: 800px) {
-				width: calc(100vw / 12);
+				width: ${(props) => 50 / (props.numOfDays + 1)}vw;
 			}
 
 			@media screen and (max-width: 1000px) and (min-width: 800px) {
 				width: ${(props) => 34 / (props.numOfDays + 1)}vw;
 			}
 			.subject-classroom {
-				width: 6.5vw;
+				width: ${(props) => 32.5 / props.numOfDays}vw;
 				@media screen and (max-width: 800px) {
 					flex-direction: column;
 					.classroom {
@@ -197,6 +199,7 @@ const StyledTimetable = styled.div`
 			box-shadow: rgba(100, 100, 111, 0.1) 0px 7px 29px 0px;
 			border-right: 1px solid rgb(199, 199, 199);
 			border-top: 1px solid rgb(199, 199, 199);
+			overflow: hidden;
 
 			&:first-child {
 				border-left: 1px solid rgb(199, 199, 199);
@@ -244,44 +247,6 @@ const StyledTimetable = styled.div`
 			transform: scale(1);
 			opacity: 1;
 		}
-	}
-
-	.timetable-left-enter {
-		transform: translateX(300px);
-		opacity: 0;
-	}
-	.timetable-left-enter-active {
-		transform: translateX(0);
-		opacity: 1;
-		transition: 0.25s ease;
-	}
-	.timetable-left-exit {
-		transform: scale(1);
-		opacity: 1;
-	}
-	.timetable-left-exit-active {
-		transform: scale(0.9);
-		opacity: 0;
-		transition: 0.25s ease;
-	}
-
-	.timetable-right-enter {
-		transform: translateX(-300px);
-		opacity: 0;
-	}
-	.timetable-right-enter-active {
-		transform: translateX(0);
-		opacity: 1;
-		transition: 0.25s ease;
-	}
-	.timetable-right-exit {
-		transform: scale(1);
-		opacity: 0.5;
-	}
-	.timetable-right-exit-active {
-		transform: scale(0.9);
-		opacity: 0;
-		transition: 0.25s ease;
 	}
 `;
 

@@ -33,6 +33,7 @@ const StyledNewsArticle = styled.div`
 		padding: 0 20px;
 		overflow-y: auto;
 		height: ${(props) => props.imgHeight}px;
+		font-family: "Open Sans", sans-serif;
 
 		h3 {
 			font-family: "Noto Sans", sans-serif;
@@ -41,6 +42,7 @@ const StyledNewsArticle = styled.div`
 			position: static;
 			margin-left: 0;
 			height: min-content;
+			font-size: 0.9em;
 		}
 		&::-webkit-scrollbar {
 			width: 3px;

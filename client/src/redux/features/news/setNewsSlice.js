@@ -11,7 +11,7 @@ const setNewsSlice = createSlice({
 	},
 	reducers: {
 		setNews(state, action) {
-			return action.payload;
+			return { ...state, ...action.payload };
 		},
 	},
 });
@@ -30,20 +30,11 @@ export const fetchNews = () => async (dispatch) => {
 			)}&to=${easistentApiFormat(new Date())}`
 		),
 		fetch("https://backend.sledilnik.org/api/v1/restrictions/21/"),
-		fetch("/.netlify/functions/app/news/24ur"),
 	]);
-	const [summary, schoolCases, schoolRestrictions, news] = await Promise.all(
+	const [summary, schoolCases, schoolRestrictions] = await Promise.all(
 		responses.map((res) => res.json())
 	);
-	const {
-		rule,
-		exceptions,
-		extra_rules,
-		regions,
-		valid_since,
-		valid_until,
-		legal_link,
-	} = schoolRestrictions;
+
 	dispatch(
 		setNews({
 			casesToday: summary.testsToday.subValues,
@@ -51,15 +42,15 @@ export const fetchNews = () => async (dispatch) => {
 			totalVaccinations: summary.vaccinationSummary.value,
 			schoolCases: schoolCases.pop().schoolType,
 			schoolRestrictions: {
-				rule,
-				exceptions,
-				extra_rules,
-				regions,
-				valid_since,
-				valid_until,
-				legal_link,
+				...schoolRestrictions,
 			},
-			news,
 		})
 	);
+	try {
+		const newsRes = await fetch("/.netlify/functions/app/news/24ur");
+		const news = await newsRes.json();
+		dispatch(setNews({ news }));
+	} catch {
+		console.log("whoopsie");
+	}
 };

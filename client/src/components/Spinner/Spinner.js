@@ -1,7 +1,7 @@
 import StyledSpinner from "./SpinnerStyles";
 
-const Spinner = () => (
-	<StyledSpinner>
+const Spinner = ({ size = 60, offsetX = 0, color }) => (
+	<StyledSpinner size={size} offsetX={offsetX} color={color}>
 		<div className="sk-circle1 sk-child"></div>
 		<div className="sk-circle2 sk-child"></div>
 		<div className="sk-circle3 sk-child"></div>

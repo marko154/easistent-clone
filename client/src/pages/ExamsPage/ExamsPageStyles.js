@@ -14,7 +14,18 @@ const StyledChoice = styled.div`
 		border: 2px solid ${(props) => props.primary};
 		color: ${(props) => props.primary};
 		transition: 0.2s ease;
+		box-sizing: border-box;
+
+		@media screen and (max-width: 800px) {
+			padding: 7px;
+			width: 39vw;
+		}
 	}
+
+	@media screen and (max-width: 800px) {
+		margin: 15px 0;
+	}
+
 	.active {
 		color: white;
 		background: ${(props) => props.primary};

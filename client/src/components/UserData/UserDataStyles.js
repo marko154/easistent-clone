@@ -15,7 +15,7 @@ const StyledUserData = styled.div`
 			cursor: pointer;
 			box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 			margin: 15px 0 25px 20px;
-			border-radius: 5px;
+
 			&:hover {
 				box-shadow: rgba(0, 0, 0, 0.28) 0px 5px 22px;
 			}
@@ -28,6 +28,9 @@ const StyledUserData = styled.div`
 			margin: 0 50px;
 
 			div {
+				display: flex;
+				flex-direction: row;
+				justify-content: space-between;
 				padding: 10px 15px;
 				margin: 15px 0;
 				border-bottom: 1px solid rgba(0, 0, 0, 0.4);
@@ -61,6 +64,9 @@ const StyledUserData = styled.div`
 		display: flex;
 		flex-wrap: wrap;
 		div {
+			display: flex;
+			justify-content: space-between;
+			flex-wrap: wrap;
 			padding: 10px 15px;
 			margin: 15px 15px;
 			border-bottom: 1px solid rgba(0, 0, 0, 0.4);

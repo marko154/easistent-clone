@@ -55,13 +55,21 @@ const UserData = ({
 						src={`https://www.easistent.com/images/dijaki/${avatar}`}
 					/>
 					<div>
-						<div>Name: {display_name}</div>
-						<div>Last name: {priimek}</div>
-						<div>Age: {age}</div>
+						<div>
+							Name: <span>{display_name}</span>
+						</div>
+						<div>
+							Last name: <span>{priimek}</span>
+						</div>
+						<div>
+							Age: <span>{age}</span>
+						</div>
 					</div>
 				</div>
 				<div className="other">
-					<div>Date of birth: {datum_rojstva}</div>
+					<div>
+						Date of birth: <span>{datum_rojstva}</span>
+					</div>
 					<div>
 						Gender:
 						<input type="radio" defaultChecked={gender === "m"} />
@@ -69,14 +77,26 @@ const UserData = ({
 						<input type="radio" defaultChecked={gender !== "m"} />
 						<label htmlFor="gender">Female</label>
 					</div>
-					<div>Emšo: {emso}</div>
+					<div>
+						Emšo: <span>{emso}</span>
+					</div>
 
-					<div>Email: {email}</div>
-					<div>Phone: {mobitel}</div>
+					<div>
+						Email: <span>{email}</span>
+					</div>
+					<div>
+						Phone: <span>{mobitel}</span>
+					</div>
 
-					<div>Address: {ulica + " " + hisna_stevilka}</div>
-					<div>City: {postna + " " + posta}</div>
-					<div>Country: {drzava}</div>
+					<div>
+						Address: <span>{ulica + " " + hisna_stevilka}</span>
+					</div>
+					<div>
+						City: <span>{postna + " " + posta}</span>
+					</div>
+					<div>
+						Country: <span>{drzava}</span>
+					</div>
 				</div>
 			</StyledUserData>
 			{!isAuthenticated && (

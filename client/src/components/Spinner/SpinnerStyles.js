@@ -1,11 +1,10 @@
 import styled from "styled-components";
 
 const StyledSpinner = styled.div`
-	margin: 100px auto;
-	width: 60px;
-	height: 60px;
-	position: relative;
-	color: rgba(0, 0, 0, 0.1);
+	margin: ${(props) => (props.color ? "" : "100px auto")};
+	width: ${(props) => props.size}px;
+	height: ${(props) => props.size}px;
+	transform: translateX(${(props) => props.offsetX}px);
 
 	.sk-child {
 		width: 100%;
@@ -20,7 +19,7 @@ const StyledSpinner = styled.div`
 		margin: 0 auto;
 		width: 15%;
 		height: 15%;
-		background-color: rgba(0, 0, 0, 0.25);
+		background: ${(props) => props.color || "rgba(0, 0, 0, 0.25)"};
 		border-radius: 100%;
 		-webkit-animation: sk-circleBounceDelay 1.2s infinite ease-in-out both;
 		animation: sk-circleBounceDelay 1.2s infinite ease-in-out both;

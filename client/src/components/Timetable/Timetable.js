@@ -1,10 +1,9 @@
-import { memo, useEffect, useState } from "react";
-import { connect } from "react-redux";
-import { setAnimationDirection } from "../../redux/features/timetable/setTimetableSlice";
-import { CSSTransition } from "react-transition-group";
+import { memo } from "react";
 import TimetableHour from "./TimetableHour";
 import { smallDateFormat } from "../../utils/dateFormat";
 import StyledTimetable from "./TimetableStyles";
+import { connect } from "react-redux";
+import Spinner from "../Spinner/Spinner";
 
 const Timetable = ({
 	all_day_events,
@@ -12,28 +11,15 @@ const Timetable = ({
 	events,
 	school_hour_events,
 	time_table,
-	animationDirection,
-	from,
-	setAnimationDirection,
+	isLoading,
 }) => {
-	const [showTable, setShowTable] = useState(false);
-
-	useEffect(() => {
-		setShowTable(false);
-		setTimeout(() => setShowTable(true), 250);
-	}, [from]);
-
-	useEffect(() => {
-		return () => setAnimationDirection("");
-	}, [setAnimationDirection]);
-
 	return (
 		<StyledTimetable
 			numOfDays={day_table ? day_table.length : 0}
-			animDir={animationDirection}
+			isLoading={isLoading}
 		>
 			{time_table && (
-				<>
+				<div style={{ position: "relative" }}>
 					<div className="row day-names">
 						<div className="day-name"></div>
 						{day_table.map((day, i) => (
@@ -43,61 +29,44 @@ const Timetable = ({
 							</div>
 						))}
 					</div>
-					<CSSTransition
-						unmountOnExit
-						timeout={250}
-						in={animationDirection === "" ? true : showTable}
-						classNames={
-							animationDirection
-								? animationDirection === "left"
-									? "timetable-left"
-									: "timetable-right"
-								: ""
-						}
-					>
-						<div className="timetable-wrapper">
-							{time_table.map((hour) => (
-								<div key={hour.id} className="row">
-									<div className="from-to">
-										<span className="number">
-											{hour.name && hour.name + "."}
-										</span>
-										<span className="time">{`${hour.time.from} - ${hour.time.to}`}</span>
-									</div>
-									{day_table.map((day) => (
-										<TimetableHour
-											key={day.name}
-											date={day.date}
-											events={events}
-											from={hour.time.from}
-											to={hour.time.to}
-											all_day_events={all_day_events}
-											hourData={school_hour_events.filter(
-												(lesson) =>
-													lesson.time.date ===
-														day.date &&
-													lesson.time.from_id ===
-														hour.id
-											)}
-										/>
-									))}
+					<div className="timetable-wrapper">
+						{time_table.map((hour) => (
+							<div key={hour.id} className="row">
+								<div className="from-to">
+									<span className="number">
+										{hour.name && hour.name + "."}
+									</span>
+									<span className="time">{`${hour.time.from} - ${hour.time.to}`}</span>
 								</div>
-							))}
-						</div>
-					</CSSTransition>
-				</>
+								{day_table.map((day) => (
+									<TimetableHour
+										key={day.name}
+										date={day.date}
+										events={events}
+										from={hour.time.from}
+										to={hour.time.to}
+										all_day_events={all_day_events}
+										hourData={school_hour_events.filter(
+											(lesson) =>
+												lesson.time.date === day.date &&
+												lesson.time.from_id === hour.id
+										)}
+									/>
+								))}
+							</div>
+						))}
+					</div>
+					<div
+						style={{ position: "absolute", top: 200, left: "50%" }}
+					>
+						{isLoading && <Spinner color="#555" />}
+					</div>
+				</div>
 			)}
 		</StyledTimetable>
 	);
 };
 
-const mapStateToProps = (state) => ({
-	animationDirection: state.timetable.animationDirection,
-	from: state.timetable.week.from,
-});
+const mapStateToProps = (state) => ({ isLoading: state.timetable.isLoading });
 
-const mapDispatchToProps = (dispatch) => ({
-	setAnimationDirection: (val) => dispatch(setAnimationDirection(val)),
-});
-
-export default memo(connect(mapStateToProps, mapDispatchToProps)(Timetable));
+export default memo(connect(mapStateToProps)(Timetable));

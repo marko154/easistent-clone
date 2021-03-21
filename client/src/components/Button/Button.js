@@ -1,7 +1,14 @@
 import { useEffect, useState } from "react";
+import Spinner from "../Spinner/Spinner";
 import StyledButton from "./ButtonStyles";
 
-const Button = ({ children, onClick }) => {
+const Button = ({
+	children,
+	onClick,
+	isLoading = false,
+	marginTop = 0,
+	width = 300,
+}) => {
 	const [coords, setCoords] = useState({ x: -1, y: -1 });
 	const [isRippling, setIsRippling] = useState(false);
 
@@ -26,6 +33,10 @@ const Button = ({ children, onClick }) => {
 				});
 				onClick && onClick(e);
 			}}
+			isLoading={isLoading}
+			disabled={isLoading}
+			marginTop={marginTop}
+			width={width}
 		>
 			{isRippling ? (
 				<span
@@ -38,7 +49,10 @@ const Button = ({ children, onClick }) => {
 			) : (
 				""
 			)}
-			<span className="content">{children}</span>
+			<span className="content">
+				{isLoading && <Spinner size={18} offsetX={-10} color="white" />}
+				{children}
+			</span>
 		</StyledButton>
 	);
 };
