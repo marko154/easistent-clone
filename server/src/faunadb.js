@@ -4,7 +4,7 @@ const { Get, Match, Index, Create, Select } = faunadb.query;
 
 const secret = process.env.FAUNADB_SECRET;
 const client = new faunadb.Client({
-	secret: "fnAEE_8k0KACB7HYHyKms9KhuC5IMOiEinAWEghe",
+	secret,
 });
 
 const createUser = async ({ email, primary, secondary, school }) => {
@@ -49,7 +49,7 @@ const getColorScheme = async (email) => {
 
 const setSchool = async (email, school) => {
 	try {
-		const res = await client.query(
+		await client.query(
 			Update(Select(["ref"], Get(Match(Index("user_by_email"), email))), {
 				data: { school },
 			})
@@ -60,11 +60,15 @@ const setSchool = async (email, school) => {
 };
 
 const setColorScheme = async (email, color) => {
-	await client.query(
-		Update(Select(["ref"], Get(Match(Index("user_by_email"), email))), {
-			data: { ...color },
-		})
-	);
+	try {
+		await client.query(
+			Update(Select(["ref"], Get(Match(Index("user_by_email"), email))), {
+				data: color,
+			})
+		);
+	} catch (e) {
+		console.log(e);
+	}
 };
 
 module.exports = {

@@ -34,7 +34,6 @@ export const fetchNews = () => async (dispatch) => {
 	const [summary, schoolCases, schoolRestrictions] = await Promise.all(
 		responses.map((res) => res.json())
 	);
-	console.log({ schoolCases });
 	dispatch(
 		setNews({
 			casesToday: summary.testsToday.subValues,
