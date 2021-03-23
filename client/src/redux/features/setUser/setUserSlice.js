@@ -74,21 +74,16 @@ export const logUserOut = () => async (dispatch) => {
 
 export const setUserColor = (color) => async (dispatch, getState) => {
 	dispatch(setColor(color));
-	const email = getState().user.email;
+	const email = getState().user.email.trim();
 	const options = {
 		method: "PATCH",
-		body: JSON.stringify({ ...color, email }),
+		body: JSON.stringify({ color, email }),
 		headers: {
 			"Content-Type": "application/json",
 		},
 	};
 	try {
-		const res = await fetch(
-			"/.netlify/functions/app/api/update-color-scheme",
-			options
-		);
-		const val = await res.json();
-		console.log(val);
+		await fetch("/.netlify/functions/app/api/update-color-scheme", options);
 	} catch {
 		console.log("Whoopsie");
 	}

@@ -4,7 +4,7 @@ const { Get, Match, Index, Create, Select } = faunadb.query;
 
 const secret = process.env.FAUNADB_SECRET;
 const client = new faunadb.Client({
-	secret,
+	secret: "fnAEE_8k0KACB7HYHyKms9KhuC5IMOiEinAWEghe",
 });
 
 const createUser = async ({ email, primary, secondary, school }) => {
@@ -30,7 +30,6 @@ const getColorScheme = async (email) => {
 			Get(Match(Index("user_by_email"), email))
 		);
 		const { primary, secondary } = doc.data;
-		console.log({ primary, secondary });
 		return { primary, secondary };
 	} catch (err) {
 		if (err.description === "Set not found.") {

@@ -22,7 +22,7 @@ router.post("/api/auth", async (req, res) => {
 	// get access token and x-child-id to store on the client
 	const [{ token, xChildID, sessionID, error }, color] = await Promise.all([
 		getAccessToken(username, password),
-		getColorScheme(username),
+		getColorScheme(username.trim()),
 	]);
 	if (error) return res.json({ error });
 	res.cookie("token", token, { maxAge: 86_400_000, httpOnly: true });
@@ -53,9 +53,9 @@ router.get("/api/user-data", async (req, res) => {
 });
 
 router.patch("/api/update-color-scheme", async (req, res) => {
-	const { primary, secondary, email } = req.body;
+	const { color, email } = req.body;
 	try {
-		setColorScheme(email, { primary, secondary });
+		setColorScheme(email, color);
 		res.json({ message: "success" });
 	} catch {
 		res.json({ message: "error" }).status(400);
