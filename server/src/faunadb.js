@@ -4,7 +4,7 @@ const { Get, Match, Index, Create, Select } = faunadb.query;
 
 const secret = process.env.FAUNADB_SECRET;
 const client = new faunadb.Client({
-	secret: "fnAEE_8k0KACB7HYHyKms9KhuC5IMOiEinAWEghe",
+	secret
 });
 
 const createUser = async ({ email, primary, secondary, school }) => {
