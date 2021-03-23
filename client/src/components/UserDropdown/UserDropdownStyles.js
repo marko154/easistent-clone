@@ -15,7 +15,7 @@ const StyledUserDropdown = styled.div`
 	animation: fade-pop 0.15s ease;
 	transition: height 0.25s ease;
 	display: flex;
-	z-index: 1;
+	z-index: 4;
 	height: ${(props) => props.height}px;
 	a {
 		color: white;

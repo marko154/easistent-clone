@@ -27,7 +27,7 @@ const StyledAbsence = styled.div`
 			font-size: 1.3em;
 			@media screen and (max-width: 600px) {
 				flex-grow: 1;
-				padding: 20px 10px;
+				padding: 20px 10px 10px;
 			}
 		}
 	}

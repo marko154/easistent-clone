@@ -4,6 +4,7 @@ export const useLoginForm = (
 	initialFields,
 	history,
 	setClientID,
+	setColor,
 	fetchUserData
 ) => {
 	const [fields, setFields] = useState(initialFields);
@@ -28,6 +29,7 @@ export const useLoginForm = (
 		fetchUserData();
 		if (data.error) return setError(data.error);
 		setClientID({ xChildID: data.xChildID, username });
+		setColor(data.color);
 		history.push("/");
 	};
 	const demoLogin = async (e) => {

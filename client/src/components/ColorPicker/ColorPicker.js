@@ -31,14 +31,14 @@ const ColorPicker = ({ setColor, type }) => (
 					<div
 						key={color}
 						style={{ background: color }}
-						onClick={() => setColor(color)}
+						onClick={() => setColor({[type]: color})}
 					></div>
 			  ))
 			: secondaryColors.map((color) => (
 					<div
 						key={color}
 						style={{ background: color }}
-						onClick={() => setColor(color)}
+						onClick={() => setColor({[type]: color})}
 					></div>
 			  ))}
 	</StyledColorPicker>

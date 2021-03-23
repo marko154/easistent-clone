@@ -6,7 +6,7 @@ const StyledTimetable = styled.div`
 		box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 		margin-bottom: 100px;
 		animation: 0.15s fade-pop ease;
-		opacity: ${(props) => (props.isLoading ? ".75" : "1")};
+		opacity: ${(props) => (props.isLoading ? ".7" : "1")};
 		transition: 0.05s ease;
 	}
 	.day-names {
@@ -54,8 +54,8 @@ const StyledTimetable = styled.div`
 
 		.time-indicator {
 			height: 2px;
-			width: 103%;
-			margin-left: -1.5%;
+			width: 105%;
+			margin-left: -2.5%;
 			background: #992020;
 			position: absolute;
 			cursor: pointer;
@@ -166,6 +166,7 @@ const StyledTimetable = styled.div`
 			}
 			@media screen and (max-width: 800px) {
 				font-size: 0.9rem;
+				padding: 3px;
 			}
 		}
 

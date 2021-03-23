@@ -5,14 +5,14 @@ const { getAccessToken, easistentRequest } = require("./easistentAPI.js");
 const { getUserData } = require("./easistentUserData.js");
 const { getNews } = require("./newsScraper/24ur.js");
 const demoData = require("./demoData");
+const { getColorScheme, setColorScheme, setSchool } = require("./faunadb");
 
 const PORT = process.env.PORT || 3001;
-
 const app = express();
 const router = express.Router();
 app.use(express.json());
 app.use(cookieParser());
-// implement logout (set token and session id to a dummy value with setcookie)
+
 router.post("/api/auth", async (req, res) => {
 	const { username, password } = req.body;
 	if (username === "demo") {
@@ -20,15 +20,15 @@ router.post("/api/auth", async (req, res) => {
 		return res.json({ xChildID: "demo" });
 	}
 	// get access token and x-child-id to store on the client
-	const { token, xChildID, sessionID, error } = await getAccessToken(
-		username,
-		password
-	);
+	const [{ token, xChildID, sessionID, error }, color] = await Promise.all([
+		getAccessToken(username, password),
+		getColorScheme(username),
+	]);
 	if (error) return res.json({ error });
 	res.cookie("token", token, { maxAge: 86_400_000, httpOnly: true });
 	res.cookie("xChildID", xChildID, { maxAge: 86_400_000, httpOnly: true });
 	res.cookie("sessionID", sessionID, { maxAge: 86_400_000, httpOnly: true });
-	res.json({ xChildID });
+	res.json({ xChildID, color });
 });
 
 router.post("/api/logout", (req, res) => {
@@ -49,6 +49,17 @@ router.get("/api/basic-user-data", async (req, res) => {
 router.get("/api/user-data", async (req, res) => {
 	const userData = await getUserData(req.cookies.sessionID);
 	res.json(userData);
+	setSchool(userData.email, userData.school);
+});
+
+router.patch("/api/update-color-scheme", async (req, res) => {
+	const { primary, secondary, email } = req.body;
+	try {
+		setColorScheme(email, { primary, secondary });
+		res.json({ message: "success" });
+	} catch {
+		res.json({ message: "error" }).status(400);
+	}
 });
 
 router.get("/api/timetable", async (req, res) => {

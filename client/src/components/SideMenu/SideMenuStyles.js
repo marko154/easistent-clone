@@ -15,7 +15,7 @@ const StyledSideMenu = styled.menu`
 	overflow-y: auto;
 	font-display: swap;
 	transition: 0.15s ease;
-	z-index: 1;
+	z-index: 3;
 	@keyframes appear {
 		0% {
 			opacity: 0;

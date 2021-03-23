@@ -5,15 +5,17 @@ import Button from "../../components/Button/Button";
 import {
 	setClientID,
 	fetchUserData,
+	setColor,
 } from "../../redux/features/setUser/setUserSlice";
 import StyledLoginForm from "./LoginPageStyles";
 import { useLoginForm } from "./useLoginForm";
 
-const LoginPage = ({ setClientID, history, fetchUserData }) => {
+const LoginPage = ({ setClientID, history, fetchUserData, setColor }) => {
 	const [setFields, isLoading, error, logIn, demoLogin] = useLoginForm(
 		{ username: "", password: "" },
 		history,
 		setClientID,
+		setColor,
 		fetchUserData
 	);
 	const [isPasswordVisible, setIsPasswordVisible] = useState(false);
@@ -74,6 +76,7 @@ const LoginPage = ({ setClientID, history, fetchUserData }) => {
 
 const mapDispatchToProps = (dispatch) => ({
 	setClientID: (clientID) => dispatch(setClientID(clientID)),
+	setColor: (color) => dispatch(setColor(color)),
 	fetchUserData: () => dispatch(fetchUserData()),
 });
 

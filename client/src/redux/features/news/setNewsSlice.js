@@ -21,7 +21,7 @@ export default setNewsSlice.reducer;
 
 export const fetchNews = () => async (dispatch) => {
 	const yesterday = new Date();
-	yesterday.setDate(yesterday.getDate() - 2);
+	yesterday.setDate(yesterday.getDate() - 3);
 	const responses = await Promise.all([
 		fetch("https://api.sledilnik.org/api/summary"),
 		fetch(
@@ -34,7 +34,7 @@ export const fetchNews = () => async (dispatch) => {
 	const [summary, schoolCases, schoolRestrictions] = await Promise.all(
 		responses.map((res) => res.json())
 	);
-
+	console.log({ schoolCases });
 	dispatch(
 		setNews({
 			casesToday: summary.testsToday.subValues,

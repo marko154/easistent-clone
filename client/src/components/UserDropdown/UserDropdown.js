@@ -5,8 +5,7 @@ import { connect } from "react-redux";
 import { toggleShowDropdown } from "../../redux/features/showDropdown/showDropdownSlice";
 import {
 	setClientID,
-	setPrimaryColor,
-	setSecondaryColor,
+	setUserColor,
 	logUserOut,
 } from "../../redux/features/setUser/setUserSlice";
 import { BiLogOut, BiColorFill } from "react-icons/bi";
@@ -20,13 +19,7 @@ import { toggleIsDraggable } from "../../redux/features/sideMenu/sideMenuSlice";
 
 const UserDropdown = forwardRef(
 	(
-		{
-			toggleShowDropdown,
-			setPrimaryColor,
-			setSecondaryColor,
-			toggleIsSidemenuDragging,
-			logUserOut,
-		},
+		{ toggleShowDropdown, setColor, toggleIsSidemenuDragging, logUserOut },
 		ref
 	) => {
 		const [activeMenu, setActiveMenu] = useState("main");
@@ -108,14 +101,7 @@ const UserDropdown = forwardRef(
 					</CSSTransition>
 				</StyledUserDropdown>
 				{isChoosingColor && (
-					<ColorPicker
-						type={type}
-						setColor={
-							type === "primary"
-								? setPrimaryColor
-								: setSecondaryColor
-						}
-					/>
+					<ColorPicker type={type} setColor={setColor} />
 				)}
 			</>
 		);
@@ -125,8 +111,7 @@ const UserDropdown = forwardRef(
 const mapDispatchToProps = (dispatch) => ({
 	setClientID: (clientID) => dispatch(setClientID(clientID)),
 	toggleShowDropdown: (val) => dispatch(toggleShowDropdown(val)),
-	setPrimaryColor: (color) => dispatch(setPrimaryColor(color)),
-	setSecondaryColor: (color) => dispatch(setSecondaryColor(color)),
+	setColor: (color) => dispatch(setUserColor(color)),
 	toggleIsSidemenuDragging: (val) => dispatch(toggleIsDraggable(val)),
 	logUserOut: () => dispatch(logUserOut()),
 });

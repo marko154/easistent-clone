@@ -20,12 +20,10 @@ const setUserSlice = createSlice({
 		setUserData(state, action) {
 			return { ...state, ...action.payload };
 		},
-		setPrimaryColor(state, action) {
-			return { ...state, primary: action.payload };
+		setColor(state, action) {
+			return { ...state, ...action.payload };
 		},
-		setSecondaryColor(state, action) {
-			return { ...state, secondary: action.payload };
-		},
+
 		resetUser(state, action) {
 			return { clientID: null, primary: "#00929c", secondary: "#333333" };
 		},
@@ -36,8 +34,7 @@ export const {
 	setClientID,
 	setBasicUserData,
 	setUserData,
-	setPrimaryColor,
-	setSecondaryColor,
+	setColor,
 	resetUser,
 } = setUserSlice.actions;
 export default setUserSlice.reducer;
@@ -73,4 +70,26 @@ export const logUserOut = () => async (dispatch) => {
 		method: "POST",
 	});
 	dispatch(resetUser());
+};
+
+export const setUserColor = (color) => async (dispatch, getState) => {
+	dispatch(setColor(color));
+	const email = getState().user.email;
+	const options = {
+		method: "PATCH",
+		body: JSON.stringify({ ...color, email }),
+		headers: {
+			"Content-Type": "application/json",
+		},
+	};
+	try {
+		const res = await fetch(
+			"/.netlify/functions/app/api/update-color-scheme",
+			options
+		);
+		const val = await res.json();
+		console.log(val);
+	} catch {
+		console.log("Whoopsie");
+	}
 };

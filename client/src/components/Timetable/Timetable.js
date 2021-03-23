@@ -57,7 +57,12 @@ const Timetable = ({
 						))}
 					</div>
 					<div
-						style={{ position: "absolute", top: 200, left: "50%" }}
+						style={{
+							position: "absolute",
+							top: 200,
+							left: "50%",
+							transform: "translateX(-50%)",
+						}}
 					>
 						{isLoading && <Spinner color="#555" />}
 					</div>

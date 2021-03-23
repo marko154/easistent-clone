@@ -21,6 +21,7 @@ const Absence = ({
 				onClick={() => setShowDetails(!showDetails)}
 				className="summary"
 			>
+				{" "}
 				<FaCalendarTimes />
 				<p>{formatDate(date)}</p>
 				<p>Lessons: {missing_count}</p>
