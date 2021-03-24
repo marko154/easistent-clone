@@ -3,6 +3,7 @@ const faunadb = require("faunadb");
 const { Get, Match, Index, Create, Select } = faunadb.query;
 
 const secret = process.env.FAUNADB_SECRET;
+console.log("FAUNA_DB_SECRET: ___ ", secret);
 const client = new faunadb.Client({
 	secret,
 });
@@ -34,7 +35,7 @@ const getColorScheme = async (email) => {
 	} catch (err) {
 		if (err.description === "Set not found.") {
 			console.log("CREATING USER");
-			createUser({
+			await createUser({
 				email,
 				primary: "#00929c",
 				secondary: "#333333",
