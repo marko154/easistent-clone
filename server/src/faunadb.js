@@ -3,7 +3,6 @@ const faunadb = require("faunadb");
 const { Get, Match, Index, Create, Select } = faunadb.query;
 
 const secret = process.env.FAUNADB_SECRET;
-console.log("FAUNA_DB_SECRET: ___ ", secret);
 const client = new faunadb.Client({
 	secret,
 });

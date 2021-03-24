@@ -49,13 +49,13 @@ router.get("/api/basic-user-data", async (req, res) => {
 router.get("/api/user-data", async (req, res) => {
 	const userData = await getUserData(req.cookies.sessionID);
 	res.json(userData);
-	setSchool(userData.email, userData.school);
+	await setSchool(userData.email, userData.school);
 });
 
 router.patch("/api/update-color-scheme", async (req, res) => {
 	const { color, email } = req.body;
 	try {
-		setColorScheme(email, color);
+		await setColorScheme(email, color);
 		res.json({ message: "success" });
 	} catch {
 		res.json({ message: "error" }).status(400);
@@ -126,7 +126,13 @@ router.use((req, res, next) => {
 });
 
 app.use("/.netlify/functions/app", router);
-module.exports.handler = serverless(app);
+module.exports.handler = serverless(app, {
+	request: function (req, event, context) {
+		context.callbackWaitsForEmptyEventLoop = false;
+		req.event = event;
+		req.context = context;
+	},
+});
 
 // app.listen(PORT, () => {
 // 	console.log(`Example app listening at http://localhost:${PORT}`);
