@@ -8,7 +8,7 @@ import Spinner from "../../components/Spinner/Spinner";
 import StyledPage from "../PageStyles";
 import { NewsWrapper } from "../../components/CovidStatus/CovidStatusStyles";
 
-const CovidNews = ({ news, setNews }) => {
+const CovidNews = ({ news, setNews, isLoaded }) => {
 	const shouldAnimateRef = useRef(false);
 	useEffect(() => {
 		if (news.length === 0) {
@@ -19,13 +19,18 @@ const CovidNews = ({ news, setNews }) => {
 
 	return (
 		<StyledPage>
-			{news.length === 0 ? (
-				<Spinner />
-			) : (
-				<NewsWrapper>
-					<CovidStatus />
-					<SchoolCovidStatus />
-					{news.map((article, i) => (
+			<NewsWrapper>
+				{isLoaded ? (
+					<>
+						<CovidStatus />
+						<SchoolCovidStatus />
+					</>
+				) : (
+					<Spinner />
+				)}
+
+				{news.length > 0 &&
+					news.map((article, i) => (
 						<NewsArticle
 							shouldAnimate={shouldAnimateRef.current}
 							key={i}
@@ -33,14 +38,14 @@ const CovidNews = ({ news, setNews }) => {
 							{...article}
 						/>
 					))}
-				</NewsWrapper>
-			)}
+			</NewsWrapper>
 		</StyledPage>
 	);
 };
 
 const mapStateToProps = (state) => ({
 	news: state.news.news,
+	isLoaded: !!state.news.casesToday,
 });
 
 const mapDispatchToProps = (dispatch) => ({
